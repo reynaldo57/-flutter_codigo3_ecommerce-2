@@ -1,9 +1,9 @@
-
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_codigo3_ecommerce/api/api_service.dart';
 import 'package:flutter_codigo3_ecommerce/models/banner.model.dart';
 import 'package:flutter_codigo3_ecommerce/models/brand_model.dart';
+import 'package:flutter_codigo3_ecommerce/page/cart_page.dart';
 import 'package:flutter_codigo3_ecommerce/page/product_list_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -14,8 +14,8 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   int _current = 0;
   final CarouselController _controller = CarouselController();
-  List <BannerModel>listBanner = [];
-  List <BrandModel>listBrand = [];
+  List<BannerModel> listBanner = [];
+  List<BrandModel> listBrand = [];
   APIService apiService = new APIService();
 
   @override
@@ -30,8 +30,6 @@ class _HomePageState extends State<HomePage> {
       setState(() {});
     });
     apiService.getBrands().then((value) => listBrand = value);
-
-
   }
 
   @override
@@ -58,7 +56,14 @@ class _HomePageState extends State<HomePage> {
             ),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => CartPage(),
+                ),
+              );
+            },
             icon: Icon(
               Icons.shopping_cart_outlined,
             ),
@@ -403,12 +408,11 @@ class _HomePageState extends State<HomePage> {
                 items: listBanner.map<Widget>((item) {
                   return Container(
                     margin:
-                    EdgeInsets.symmetric(horizontal: 15.0, vertical: 0.0),
+                        EdgeInsets.symmetric(horizontal: 15.0, vertical: 0.0),
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(16.0),
                       image: DecorationImage(
-                          image: NetworkImage(item.image),
-                          fit: BoxFit.cover),
+                          image: NetworkImage(item.image), fit: BoxFit.cover),
                     ),
                   );
                 }).toList(),
@@ -422,7 +426,7 @@ class _HomePageState extends State<HomePage> {
                       width: 8.0,
                       height: 8.0,
                       margin:
-                      EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
+                          EdgeInsets.symmetric(vertical: 8.0, horizontal: 4.0),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         color: _current == entry.key
@@ -460,49 +464,49 @@ class _HomePageState extends State<HomePage> {
                 physics: ScrollPhysics(),
                 children: listBrand
                     .map<Widget>((item) => ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.0),
-                      color: Colors.greenAccent,
-                      image: DecorationImage(
-                          image: NetworkImage(
-                            item.image,
-                          ),
-                          fit: BoxFit.cover),
-                    ),
-                    child: Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Color(0xff121212),
-                                Colors.transparent,
+                          borderRadius: BorderRadius.circular(20.0),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20.0),
+                              color: Colors.greenAccent,
+                              image: DecorationImage(
+                                  image: NetworkImage(
+                                    item.image,
+                                  ),
+                                  fit: BoxFit.cover),
+                            ),
+                            child: Stack(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                    gradient: LinearGradient(
+                                      colors: [
+                                        Color(0xff121212),
+                                        Colors.transparent,
+                                      ],
+                                      begin: Alignment.bottomCenter,
+                                      end: Alignment(0, 0.5),
+                                    ),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: Alignment.bottomCenter,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Text(
+                                      item.brand,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 15.0,
+                                      ),
+                                    ),
+                                  ),
+                                )
                               ],
-                              begin: Alignment.bottomCenter,
-                              end: Alignment(0, 0.5),
                             ),
                           ),
-                        ),
-                        Align(
-                          alignment: Alignment.bottomCenter,
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(
-                              item.brand,
-                              style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 15.0,
-                              ),
-                            ),
-                          ),
-                        )
-                      ],
-                    ),
-                  ),
-                ))
+                        ))
                     .toList(),
               ),
               SizedBox(

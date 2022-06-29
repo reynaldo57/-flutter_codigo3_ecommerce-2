@@ -24,8 +24,7 @@ class _ProductDetailpPgeState extends State<ProductDetailpPge> {
               style: TextStyle(
                   color: Colors.white,
                   fontSize: 15.0,
-                  fontWeight: FontWeight.bold
-              ),
+                  fontWeight: FontWeight.bold),
             ),
             backgroundColor: Color(0xff27BFCA),
             shape: RoundedRectangleBorder(
@@ -39,17 +38,16 @@ class _ProductDetailpPgeState extends State<ProductDetailpPge> {
             ),
             actions: [
               TextButton(
-              onPressed: (){
-                Navigator.pop(context);
-              },
-              child: Text(
-                "¡Ok!",
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 15.0,
-                    fontWeight: FontWeight.bold
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                child: Text(
+                  "¡Ok!",
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.bold),
                 ),
-              ),
               )
             ],
           );
@@ -273,10 +271,12 @@ class _ProductDetailpPgeState extends State<ProductDetailpPge> {
                             //   activated: true,
                             //   quantity: 10,
                             // );
-                            print(widget.sneaker.toJson());
-                            // widget.sneaker.quantity = _quantity;
-                            // DBManager.db.insertProduct(widget.sneaker);
-                            showAlertAddProduct();
+                            widget.sneaker.quantity = _quantity;
+                            DBManager.db.insertProduct(widget.sneaker).then(
+                              (value) {
+                                showAlertAddProduct();
+                              },
+                            );
                           }
                         : () {},
                     icon: Icon(Icons.add_shopping_cart_rounded),
