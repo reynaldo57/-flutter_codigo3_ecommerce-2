@@ -219,19 +219,21 @@ class _ProductDetailpPgeState extends State<ProductDetailpPge> {
                       //     builder: (context) => CartPage(),
                       //   ),
                       // );
-                      ProductModel product = new ProductModel(
-                        id: 1,
-                        brand: "adidas",
-                        category: "zapatillas",
-                        name: "supercourt",
-                        description: "asd",
-                        price: 12.99,
-                        stock: 10,
-                        image: "asd",
-                        activated: true,
-                        quantity: 10,
-                      );
-                      DBManager.db.insertProduct(product);
+                      // ProductModel product = new ProductModel(
+                      //   id: 1,
+                      //   brand: "adidas",
+                      //   category: "zapatillas",
+                      //   name: "supercourt",
+                      //   description: "asd",
+                      //   price: 12.99,
+                      //   stock: 10,
+                      //   image: "asd",
+                      //   activated: true,
+                      //   quantity: 10,
+                      // );
+                      print(widget.sneaker.toJson());
+                      widget.sneaker.quantity = _quantity;
+                      DBManager.db.insertProduct(widget.sneaker);
                     }
                         : () {},
                     icon: Icon(Icons.add_shopping_cart_rounded),
