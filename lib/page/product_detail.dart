@@ -14,6 +14,48 @@ class ProductDetailpPge extends StatefulWidget {
 class _ProductDetailpPgeState extends State<ProductDetailpPge> {
   int _quantity = 0;
 
+  showAlertAddProduct() {
+    return showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text(
+              "¡Producto Agregado!",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+            backgroundColor: Color(0xff27BFCA),
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20.0),
+            ),
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Image.asset('assets/images/success.gif'),
+              ],
+            ),
+            actions: [
+              TextButton(
+              onPressed: (){
+                Navigator.pop(context);
+              },
+              child: Text(
+                "¡Ok!",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.bold
+                ),
+              ),
+              )
+            ],
+          );
+        });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -68,7 +110,7 @@ class _ProductDetailpPgeState extends State<ProductDetailpPge> {
                         child: Text(
                           widget.sneaker.brand.toString().toUpperCase(),
                           style:
-                          TextStyle(color: Colors.black54, fontSize: 14.0),
+                              TextStyle(color: Colors.black54, fontSize: 14.0),
                         ),
                       )
                     ],
@@ -115,9 +157,9 @@ class _ProductDetailpPgeState extends State<ProductDetailpPge> {
                               onTap: _quantity == 0
                                   ? () {}
                                   : () {
-                                _quantity--;
-                                setState(() {});
-                              },
+                                      _quantity--;
+                                      setState(() {});
+                                    },
                               child: Container(
                                 height: 40,
                                 width: 40,
@@ -175,7 +217,7 @@ class _ProductDetailpPgeState extends State<ProductDetailpPge> {
                         child: Text(
                           "Descripcion General",
                           style:
-                          TextStyle(color: Colors.black54, fontSize: 14.0),
+                              TextStyle(color: Colors.black54, fontSize: 14.0),
                         ),
                       )
                     ],
@@ -188,7 +230,7 @@ class _ProductDetailpPgeState extends State<ProductDetailpPge> {
                       Flexible(
                         child: Padding(
                           padding:
-                          const EdgeInsets.only(left: 16.0, right: 16.0),
+                              const EdgeInsets.only(left: 16.0, right: 16.0),
                           child: Text(
                             widget.sneaker.description,
                             style: TextStyle(
@@ -213,28 +255,29 @@ class _ProductDetailpPgeState extends State<ProductDetailpPge> {
                   child: ElevatedButton.icon(
                     onPressed: _quantity != 0
                         ? () {
-                      // Navigator.push(
-                      //   context,
-                      //   MaterialPageRoute(
-                      //     builder: (context) => CartPage(),
-                      //   ),
-                      // );
-                      // ProductModel product = new ProductModel(
-                      //   id: 1,
-                      //   brand: "adidas",
-                      //   category: "zapatillas",
-                      //   name: "supercourt",
-                      //   description: "asd",
-                      //   price: 12.99,
-                      //   stock: 10,
-                      //   image: "asd",
-                      //   activated: true,
-                      //   quantity: 10,
-                      // );
-                      print(widget.sneaker.toJson());
-                      widget.sneaker.quantity = _quantity;
-                      DBManager.db.insertProduct(widget.sneaker);
-                    }
+                            // Navigator.push(
+                            //   context,
+                            //   MaterialPageRoute(
+                            //     builder: (context) => CartPage(),
+                            //   ),
+                            // );
+                            // ProductModel product = new ProductModel(
+                            //   id: 1,
+                            //   brand: "adidas",
+                            //   category: "zapatillas",
+                            //   name: "supercourt",
+                            //   description: "asd",
+                            //   price: 12.99,
+                            //   stock: 10,
+                            //   image: "asd",
+                            //   activated: true,
+                            //   quantity: 10,
+                            // );
+                            print(widget.sneaker.toJson());
+                            // widget.sneaker.quantity = _quantity;
+                            // DBManager.db.insertProduct(widget.sneaker);
+                            showAlertAddProduct();
+                          }
                         : () {},
                     icon: Icon(Icons.add_shopping_cart_rounded),
                     label: Text("Agregar al Carrito"),
